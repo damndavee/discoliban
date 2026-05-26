@@ -17,7 +17,7 @@
             "cjs"
           ],
           "bundle": false,
-          "main": "apps/discoliban-service/src/main.ts",
+          "main": "apps/discoliban-service/src/index.ts",
           "tsConfig": "apps/discoliban-service/tsconfig.app.json",
           "assets": [
             "apps/discoliban-service/src/assets"
