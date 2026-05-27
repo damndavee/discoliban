@@ -2,7 +2,10 @@
   "name": "@org/source",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "build": "nx build @org/discoliban-service",
+    "start": "node dist/apps/discoliban-service/index.js"
+  },
   "private": true,
   "dependencies": {
     "@nx/webpack": "^22.7.4",

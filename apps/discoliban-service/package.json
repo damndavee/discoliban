@@ -16,7 +16,7 @@
           "format": [
             "cjs"
           ],
-          "bundle": false,
+          "bundle": true,
           "main": "apps/discoliban-service/src/index.ts",
           "tsConfig": "apps/discoliban-service/tsconfig.app.json",
           "assets": [
@@ -129,8 +129,8 @@
     }
   },
   "dependencies": {
-    "cors": "^2.8.5",
-    "dotenv": "^16.4.5",
-    "express": "^4.21.2"
+    "cors": "*",
+    "dotenv": "*",
+    "express": "*"
   }
 }
