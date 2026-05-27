@@ -9,14 +9,19 @@ FROM docker.io/node:lts-alpine
 ENV HOST=0.0.0.0
 ENV PORT=3000
 
-
 WORKDIR /app
 
-COPY dist .
+COPY dist/package*.json ./
+RUN npm ci --only=production && npm cache clean --force
 
-# You can remove this install step if you build with `--bundle` option.
-# The bundled output will include external dependencies.
+COPY dist ./dist
 
-RUN npm --omit=dev -f install
+# Create non-root user for security
+RUN addgroup -g 1001 -S nodejs && adduser -S nodejs -u 1001
+USER nodejs
 
-CMD [ "node", "main.js" ]
+# Healthcheck to detect if service is running
+HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
+  CMD node -e "require('http').get('http://localhost:3000', (r) => {if (r.statusCode !== 200) throw new Error(r.statusCode)})" || exit 1
+
+CMD [ "node", "dist/index.js" ]

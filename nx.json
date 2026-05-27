@@ -50,6 +50,9 @@
   "nxCloudId": "6a15751f7e2858badd566508",
   "analytics": false,
   "targetDefaults": {
+    "docker-compose": {
+      "cache": false
+    },
     "@nx/esbuild:esbuild": {
       "cache": true,
       "dependsOn": ["^build"],

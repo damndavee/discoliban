@@ -111,10 +111,26 @@
           "build",
           "prune"
         ]
+      },
+      "docker-compose": {
+        "dependsOn": [
+          "docker:build"
+        ],
+        "cache": false,
+        "executor": "nx:run-commands",
+        "options": {
+          "files": [
+            "docker-compose.yml"
+          ],
+          "command": "docker compose -f apps/discoliban-service/docker-compose.yml up --build",
+          "cwd": "."
+        }
       }
     }
   },
   "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
     "express": "^4.21.2"
   }
 }
