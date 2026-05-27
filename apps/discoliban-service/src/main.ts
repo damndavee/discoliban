@@ -2,7 +2,8 @@ import express, { Express } from 'express';
 import cors from 'cors';
 import path from 'path';
 import { createDebugRouter } from './routes/debug';
-import { config } from './utils';
+import { config, logger } from './utils';
+import { errorMiddleware } from './middleware';
 
 export function createApp(): Express {
   const app = express();
@@ -19,6 +20,8 @@ export function createApp(): Express {
     });
   });
 
+  app.use(errorMiddleware.errorHandler)
+
   return app;
 }
 
@@ -26,40 +29,40 @@ export async function startServer(): Promise<void> {
   try {
     const app = createApp();
     const server = app.listen(config.port, () => {
-      console.info(`🚀 Server running on http://localhost:${config.port}`);
-      console.info(`Environment: ${config.env}`);
+      logger.info(`🚀 Server running on http://localhost:${config.port}`);
+      logger.info(`Environment: ${config.env}`);
     });
 
     server.on('error', (err: any) => {
       if (err.code === 'EADDRINUSE') {
         const newPort = config.port + 1;
 
-        console.log(`Port ${config.port} busy, retrying on ${newPort}`);
+        logger.info(`Port ${config.port} busy, retrying on ${newPort}`);
 
         app.listen(newPort, () => {
-          console.info(`🚀 Server running on http://localhost:${newPort}`);
+          logger.info(`🚀 Server running on http://localhost:${newPort}`);
         });
       }
     });
 
     process.on('SIGTERM', () => {
-     console.info('SIGTERM received, shutting down gracefully...');
+     logger.info('SIGTERM received, shutting down gracefully...');
      server.close(() => {
-       console.info('Server closed');
+       logger.info('Server closed');
        process.exit(0);
      });
    });
 
    process.on('SIGINT', () => {
-     console.info('SIGINT received, shutting down gracefully...');
+     logger.info('SIGINT received, shutting down gracefully...');
      server.close(() => {
-       console.info('Server closed');
+       logger.info('Server closed');
        process.exit(0);
      });
    });
 
  } catch (error) {
-   console.error('Failed to start server', error);
+   logger.error('Failed to start server', error);
    process.exit(1);
  }
 }
