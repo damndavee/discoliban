@@ -16,11 +16,6 @@
       "types": "./dist/mb/index.d.ts",
       "import": "./dist/mb/index.js",
       "default": "./dist/mb/index.js"
-    },
-    "./artist": {
-      "types": "./dist/artist/index.d.ts",
-      "import": "./dist/artist/index.js",
-      "default": "./dist/artist/index.js"
     }
   },
   "nx": {
