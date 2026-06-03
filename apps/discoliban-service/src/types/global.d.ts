@@ -1,9 +1,9 @@
-import { ISearchQuery, SearchBasedEntityMap } from '@discoliban/types/mb';
+import { ISearchQuery } from '@discoliban/types/mb';
 
 declare global {
   namespace Express {
     interface Request {
-      cleanQuery: ISearchQuery<SearchBasedEntityMap<unknown>>;
+      cleanQuery: ISearchQuery<unknown>;
     }
   }
 }
