@@ -1,5 +1,7 @@
 export enum EntityType {
   artist = 'artist',
+  release = 'release',
+  releaseGroup = 'release-group',
   // annotation = 'annotation',
   // area = 'area',
   // collection = 'collection',
@@ -8,8 +10,6 @@ export enum EntityType {
   // label = 'label',
   // place = 'place',
   // recording = 'recording',
-  // release = 'release',
-  // releaseGroup = 'release-group',
   // series = 'series',
   // work = 'work',
   // url = 'url',
